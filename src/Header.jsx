@@ -1,13 +1,19 @@
 import { useContext } from "react";
+import { Link } from "@tanstack/react-router";
 import { CartContext } from "./Contexts";
-import Cart from "./Cart";
 
 export default function Header() {
+  const [cart] = useContext(CartContext);
+
+  console.log(cart);
+
   return (
     <nav>
-      <h1 className="logo">Padre Gino's Pizza</h1>
+      <Link to="/">
+        <h1 className="logo">Padre Gino's Pizza</h1>
+      </Link>
       <div className="nav-cart">
-        <span className="nav-cart-number">{Cart.length}</span>
+        <span className="nav-cart-number">{cart.length}</span>
       </div>
     </nav>
   );

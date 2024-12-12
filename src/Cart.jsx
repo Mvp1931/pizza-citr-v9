@@ -1,7 +1,9 @@
-const Intlf = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+import { useCurrency } from "./useCurrency";
+
+// const Intlf = new Intl.NumberFormat("en-US", {
+//   style: "currency",
+//   currency: "USD",
+// });
 
 export default function Cart({ cart, checkout }) {
   let total = 0;
@@ -22,7 +24,7 @@ export default function Cart({ cart, checkout }) {
           </li>
         ))}
       </ul>
-      <p className="total">Total: {Intlf.format(total)}</p>
+      <p className="total">Total: {useCurrency(total)}</p>
       <button onClick={checkout}>Checkout</button>
     </div>
   );

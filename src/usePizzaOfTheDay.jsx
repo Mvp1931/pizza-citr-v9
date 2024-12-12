@@ -1,5 +1,4 @@
 import { useState, useEffect, useDebugValue } from "react";
-import PizzaOfTheDay from "./PizzaOfTheDay";
 
 export const usePizzaOfTheDay = () => {
   const [pizzaOfTheDay, setPizzaOfTheDay] = useState(null);

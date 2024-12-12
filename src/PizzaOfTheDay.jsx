@@ -1,9 +1,10 @@
 import { usePizzaOfTheDay } from "./usePizzaOfTheDay";
+import { useCurrency } from "./useCurrency";
 
-const Intlf = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+// const Intlf = new Intl.NumberFormat("en-US", {
+//   style: "currency",
+//   currency: "USD",
+// });
 
 const PizzaOfTheDay = () => {
   const pizzaOfTheDay = usePizzaOfTheDay();
@@ -19,8 +20,8 @@ const PizzaOfTheDay = () => {
           <h3>{pizzaOfTheDay.name}</h3>
           <p>{pizzaOfTheDay.description}</p>
           <p className="pizza-of-the-day-price">
-            From: {Intlf.format(pizzaOfTheDay.sizes.S)} - To:{" "}
-            {Intlf.format(pizzaOfTheDay.sizes.L)}
+            From: {useCurrency(pizzaOfTheDay.sizes.S)} - To:{" "}
+            {useCurrency(pizzaOfTheDay.sizes.L)}
           </p>
         </div>
         <img
