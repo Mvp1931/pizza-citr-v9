@@ -5,11 +5,13 @@
   "type": "module",
   "main": "./src/App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
+    "test-ui": "vitest --ui",
     "lint": "eslint",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "coverage": "vitest run --coverage"
   },
   "author": "mvp1931",
   "license": "ISC",
@@ -18,13 +20,22 @@
     "@tanstack/react-query-devtools": "^5.62.7",
     "@tanstack/router-devtools": "^1.87.7",
     "@tanstack/router-plugin": "^1.87.7",
+    "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/browser": "^2.1.8",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/ui": "^2.1.8",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.37.1",
     "globals": "^15.11.0",
+    "happy-dom": "^15.11.7",
+    "playwright": "^1.49.1",
     "prettier": "^3.3.3",
-    "vite": "^5.4.9"
+    "vite": "^5.4.9",
+    "vitest": "^2.1.8",
+    "vitest-browser-react": "^0.0.4",
+    "vitest-fetch-mock": "^0.4.2"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.7",
