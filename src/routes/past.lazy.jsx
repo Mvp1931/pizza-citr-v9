@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, Suspense, use } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
+
 import getPastOrders from "../api/getPastOrders.js";
 import getPastOrder from "../api/getPastOrder.js";
 import Modal from "../Modal.jsx";
@@ -12,15 +13,36 @@ export const Route = createLazyFileRoute("/past")({
   component: ErrorBoundaryWrappedPastOrderRoutes,
 });
 
-function PastOrdersRoute() {
+function ErrorBoundaryWrappedPastOrderRoutes(props) {
   const [page, setPage] = useState(1);
-  const [focusedOrder, setFocusedOrder] = useState();
-
-  const { isLoading, data } = useQuery({
+  const loadedPromise = useQuery({
     queryKey: ["past-orders", page],
     queryFn: () => getPastOrders(page),
     staleTime: 25000,
-  });
+  }).promise;
+  return (
+    <ErrorBoundary>
+      <Suspense
+        fallback={
+          <div className="past-orders">
+            <h2>Loading Past Orders...</h2>
+          </div>
+        }
+      >
+        <PastOrdersRoute
+          loadedPromise={loadedPromise}
+          page={page}
+          setPage={setPage}
+          {...props}
+        ></PastOrdersRoute>
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+
+function PastOrdersRoute({ page, setPage, loadedPromise }) {
+  const data = use(loadedPromise);
+  const [focusedOrder, setFocusedOrder] = useState();
 
   const { isLoading: isLoadingPastOrder, data: pastOrderData } = useQuery({
     queryKey: ["past-order", focusedOrder],
@@ -28,14 +50,6 @@ function PastOrdersRoute() {
     staleTime: 3600000, //6 hours in milliseconds (3600000)
     enabled: !!focusedOrder,
   });
-
-  if (isLoading) {
-    return (
-      <div className="past-orders">
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
 
   return (
     <div className="past-orders">
@@ -109,13 +123,5 @@ function PastOrdersRoute() {
         <></>
       )}
     </div>
-  );
-}
-
-function ErrorBoundaryWrappedPastOrderRoutes(props) {
-  return (
-    <ErrorBoundary>
-      <PastOrdersRoute {...props}></PastOrdersRoute>
-    </ErrorBoundary>
   );
 }
