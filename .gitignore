@@ -5,3 +5,4 @@ dist/
 coverage/
 .vscode/
 vite.config.js.*
+package-lock.json
