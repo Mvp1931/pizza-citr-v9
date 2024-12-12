@@ -5,3 +5,4 @@ dist/
 coverage/
 .vscode/
 vite.config.js.*
+public/Api-folder/Api/node_modules
